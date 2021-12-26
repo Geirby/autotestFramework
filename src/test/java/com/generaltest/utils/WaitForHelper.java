@@ -18,11 +18,11 @@ public class WaitForHelper {
 
     public void implicitwait()
     {
-        driver.manage().timeouts().implicitlyWait(Integer.parseInt(PropertyReader.readItem("elementLoadTimeout")), TimeUnit.SECONDS);
+        driver.manage().timeouts().implicitlyWait(Integer.parseInt(ConfigProperties.getProperty("elementLoadTimeout")), TimeUnit.SECONDS);
     }
 
 
-    public WebElement presenceOfTheElement(final By elementIdentifier) {
+    public WebElement presenceOfTheElement(final WebElement elementIdentifier) {
         WebElement firstResult = new WebDriverWait(driver, 20)
                 .until(ExpectedConditions.elementToBeClickable(elementIdentifier));
         return firstResult;
