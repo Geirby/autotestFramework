@@ -7,8 +7,11 @@ import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
 import org.openqa.selenium.support.FindBy;
 import org.openqa.selenium.support.PageFactory;
+import com.generaltest.base.BaseElements;
 
 public class SearchPage extends BasePage {
+
+    BaseElements baseElements = new BaseElements();
 
     public SearchPage(WebDriver driver) {
         super();
@@ -44,13 +47,13 @@ public class SearchPage extends BasePage {
     }
 
     public void enterTextOnSearchField(String value) {
-        writeText(searchField,value);
-        pressEnter(searchField);
+        baseElements.writeText(searchField,value);
+        baseElements.pressEnter(searchField);
     }
 
     public void enterTextOnSearchFieldAfterReq(String value) {
-        writeText(searchFieldAfterReq,value);
-        pressEnter(searchFieldAfterReq);
+        baseElements.writeText(searchFieldAfterReq,value);
+        baseElements.pressEnter(searchFieldAfterReq);
     }
 
     public String getFirstSearchResult() {

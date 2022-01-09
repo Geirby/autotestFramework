@@ -1,30 +1,42 @@
 package com.generaltest.utils;
 
-import org.openqa.selenium.By;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
 import org.openqa.selenium.support.ui.ExpectedConditions;
 import org.openqa.selenium.support.ui.WebDriverWait;
 
+import java.util.List;
 import java.util.concurrent.TimeUnit;
 
 public class WaitForHelper {
 
     public WebDriver driver;
 
+    private final Integer timeOutSeconds = 20;
+
     public WaitForHelper(WebDriver driver) {
         this.driver = driver;
     }
 
-    public void implicitwait()
-    {
+    public void implicitwait() {
         driver.manage().timeouts().implicitlyWait(Integer.parseInt(ConfigProperties.getProperty("elementLoadTimeout")), TimeUnit.SECONDS);
     }
 
+    public void elementIsClickable(final WebElement elementIdentifier) {
+        try{
+            WebElement firstResult = new WebDriverWait(driver, Integer.parseInt(ConfigProperties.getProperty("elementLoadTimeout")))
+                    .until(ExpectedConditions.elementToBeClickable(elementIdentifier));
+        }catch (Exception e){
+            throw new RuntimeException("Element" + elementIdentifier.toString() + " not found");
+        }
+    }
 
-    public WebElement presenceOfTheElement(final WebElement elementIdentifier) {
-        WebElement firstResult = new WebDriverWait(driver, 20)
-                .until(ExpectedConditions.elementToBeClickable(elementIdentifier));
-        return firstResult;
+    public void listOfElementsAreVisible(final List<WebElement> listOfElements) {
+        try{
+            List <WebElement> list = new WebDriverWait(driver, Integer.parseInt(ConfigProperties.getProperty("elementLoadTimeout")))
+                    .until(ExpectedConditions.visibilityOfAllElements(listOfElements));
+        }catch (Exception e){
+            throw new RuntimeException("List of Elements" + listOfElements.toString() + " not found");
+        }
     }
 }

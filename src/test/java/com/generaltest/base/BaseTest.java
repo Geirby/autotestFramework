@@ -1,6 +1,7 @@
 package com.generaltest.base;
 
 
+import com.generaltest.context.WebDriverContext;
 import com.generaltest.pages.SearchPage;
 import com.generaltest.utils.ConfigProperties;
 import io.github.bonigarcia.wdm.WebDriverManager;
@@ -10,12 +11,11 @@ import org.openqa.selenium.firefox.FirefoxDriver;
 import org.testng.annotations.AfterClass;
 import org.testng.annotations.BeforeClass;
 
-
-
 public abstract class BaseTest {
 
     protected WebDriver driver;
 
+    @BeforeClass
     protected void setupDriver() {
 
         String browser = ConfigProperties.getProperty("actualBrowser");
@@ -26,17 +26,20 @@ public abstract class BaseTest {
                 driver = new FirefoxDriver();
                 break;
             case "chrome":
+
                 WebDriverManager.chromedriver().setup();
                 driver = new ChromeDriver();
                 break;
             default:
-                System.err.println("Enter actual browser");
+                throw new RuntimeException("Enter actual browser");
         }
+        WebDriverContext.setDriver(driver);
     }
 
-    protected abstract void tearDown();
-
-
+    @AfterClass
+    protected void tearDown() {
+        driver.quit();
+    }
 }
 
 
