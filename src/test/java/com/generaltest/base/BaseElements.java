@@ -5,6 +5,9 @@ import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
 import org.openqa.selenium.interactions.Actions;
 
+import java.util.ArrayList;
+import java.util.List;
+
 public class BaseElements {
     protected WebDriver driver;
 
@@ -35,5 +38,13 @@ public class BaseElements {
 
     public void pressEnter(WebElement element) {
         element.sendKeys(Keys.ENTER);
+    }
+
+    public ArrayList<String> getTextFromList(List<WebElement> elementList) {
+        ArrayList<String> textFromResult = new ArrayList<String>();
+        for(WebElement w: elementList){
+            textFromResult.add( w.getText());
+        }
+        return textFromResult;
     }
 }

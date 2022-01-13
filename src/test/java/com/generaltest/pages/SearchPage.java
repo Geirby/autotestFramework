@@ -1,6 +1,7 @@
 package com.generaltest.pages;
 
 import com.generaltest.base.BasePage;
+import com.generaltest.context.WebDriverContext;
 import com.generaltest.utils.ConfigProperties;
 import com.generaltest.utils.WaitForHelper;
 import org.openqa.selenium.WebDriver;
@@ -8,6 +9,9 @@ import org.openqa.selenium.WebElement;
 import org.openqa.selenium.support.FindBy;
 import org.openqa.selenium.support.PageFactory;
 import com.generaltest.base.BaseElements;
+
+import java.util.ArrayList;
+import java.util.List;
 
 public class SearchPage extends BasePage {
 
@@ -30,12 +34,14 @@ public class SearchPage extends BasePage {
     @FindBy(xpath = "//head/title/text()")
     private WebElement pageTitle;
 
-    @FindBy(xpath = "//*[@class=\"input__control mini-suggest__input\"] ")
+    @FindBy(xpath = "//*[@class='input__control mini-suggest__input'] ")
     private WebElement searchFieldAfterReq;
 
     @FindBy(xpath ="//span/span/span" )
     private WebElement clearIcon;
 
+    @FindBy(xpath = "//*[@class = 'VanillaReact OrganicTitle OrganicTitle_wrap Typo Typo_text_l Typo_line_m organic__title-wrapper']")
+    private List<WebElement> listOfSearchResult;
 
     public String enterValue(String value) {
         return value;
@@ -79,6 +85,9 @@ public class SearchPage extends BasePage {
     public String getPageTitle(){
         return driver.getTitle();
     }
+
+    public ArrayList<String> getTextFromList(){return baseElements.getTextFromList(listOfSearchResult);}
+
 }
 
 
