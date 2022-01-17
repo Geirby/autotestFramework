@@ -20,7 +20,7 @@ public class YandexTest extends BaseTest {
 
     @Test(dataProvider = "data-provider")
     public void searchTest(String value) {
-        SearchPage searchPage = new SearchPage(WebDriverContext.getDriver());
+        SearchPage searchPage = new SearchPage();
         searchPage.openPage();
         searchPage.enterTextOnSearchField(value);
         searchPage.waitForTime();

@@ -23,7 +23,7 @@ public class BaseElements {
         elementLocation.click();
     }
 
-    public void writeText(WebElement elementLocation, String text) {
+    public void enterText(WebElement elementLocation, String text) {
         elementLocation.clear();
         elementLocation.sendKeys(text);
     }

@@ -3,7 +3,6 @@ package com.generaltest.pages;
 import com.generaltest.base.BasePage;
 import com.generaltest.context.WebDriverContext;
 import com.generaltest.utils.ConfigProperties;
-import com.generaltest.utils.WaitForHelper;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
 import org.openqa.selenium.support.FindBy;
@@ -17,10 +16,8 @@ public class SearchPage extends BasePage {
 
     BaseElements baseElements = new BaseElements();
 
-    public SearchPage(WebDriver driver) {
-        super();
-        PageFactory.initElements(driver, this);
-        this.driver = driver;
+    public SearchPage() {
+        WebDriverContext.getDriver().get("https://store.steampowered.com/");
     }
 
     String webpage = ConfigProperties.getProperty("webpage");
@@ -53,12 +50,12 @@ public class SearchPage extends BasePage {
     }
 
     public void enterTextOnSearchField(String value) {
-        baseElements.writeText(searchField,value);
+        baseElements.enterText(searchField,value);
         baseElements.pressEnter(searchField);
     }
 
     public void enterTextOnSearchFieldAfterReq(String value) {
-        baseElements.writeText(searchFieldAfterReq,value);
+        baseElements.enterText(searchFieldAfterReq,value);
         baseElements.pressEnter(searchFieldAfterReq);
     }
 
