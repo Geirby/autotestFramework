@@ -1,4 +1,4 @@
-package com.generaltest.utils;
+package com.framework.utils;
 
 import org.apache.log4j.LogManager;
 import org.apache.log4j.Logger;

@@ -1,0 +1,6 @@
+{
+  "mainPage": "https://store.steampowered.com/",
+  "invalidEmail": "m23.suboch@gmail.com",
+  "invalidPassword": 123456,
+  "pathForDownloadedFiles": "D:\\testDownload/SteamSetup.exe"
+}

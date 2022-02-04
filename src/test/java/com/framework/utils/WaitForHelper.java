@@ -1,10 +1,13 @@
-package com.generaltest.utils;
+package com.framework.utils;
 
+import org.openqa.selenium.By;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
+import org.openqa.selenium.support.ui.ExpectedCondition;
 import org.openqa.selenium.support.ui.ExpectedConditions;
 import org.openqa.selenium.support.ui.WebDriverWait;
 
+import java.io.File;
 import java.util.List;
 import java.util.concurrent.TimeUnit;
 
@@ -12,31 +15,55 @@ public class WaitForHelper {
 
     public WebDriver driver;
 
-    private final Integer timeOutSeconds = 20;
-
     public WaitForHelper(WebDriver driver) {
         this.driver = driver;
     }
 
-    public void implicitwait() {
+    public void implicitWait() {
         driver.manage().timeouts().implicitlyWait(Integer.parseInt(ConfigProperties.getProperty("elementLoadTimeout")), TimeUnit.SECONDS);
     }
 
     public void elementIsClickable(final WebElement elementIdentifier) {
-        try{
+        try {
             WebElement firstResult = new WebDriverWait(driver, Integer.parseInt(ConfigProperties.getProperty("elementLoadTimeout")))
                     .until(ExpectedConditions.elementToBeClickable(elementIdentifier));
-        }catch (Exception e){
+        } catch (Exception e) {
             throw new RuntimeException("Element" + elementIdentifier.toString() + " not found");
         }
     }
 
     public void listOfElementsAreVisible(final List<WebElement> listOfElements) {
-        try{
-            List <WebElement> list = new WebDriverWait(driver, Integer.parseInt(ConfigProperties.getProperty("elementLoadTimeout")))
+        try {
+            List<WebElement> list = new WebDriverWait(driver, Integer.parseInt(ConfigProperties.getProperty("elementLoadTimeout")))
                     .until(ExpectedConditions.visibilityOfAllElements(listOfElements));
-        }catch (Exception e){
+        } catch (Exception e) {
             throw new RuntimeException("List of Elements" + listOfElements.toString() + " not found");
         }
     }
+
+    public void elementIsAppeared(final WebElement element) {
+        try {
+            boolean webElement = new WebDriverWait(driver, Integer.parseInt(ConfigProperties.getProperty("elementLoadTimeout")))
+                    .until(ExpectedConditions.invisibilityOf(element));
+        } catch (Exception e) {
+            throw new RuntimeException("Element" + element.toString() + " not found");
+        }
+    }
+
+    public static boolean isFileDownloaded(String downloadPath, String fileName) {
+        File dir = new File(downloadPath);
+        File[] dir_contents = dir.listFiles();
+
+        if (dir_contents != null) {
+            for (File dir_content : dir_contents) {
+                if (dir_content.getName().equals(fileName))
+                    return true;
+            }
+        }
+
+        return false;
+    }
 }
+
+
+

@@ -1,4 +1,4 @@
-package com.generaltest.utils;
+package com.framework.utils;
 
 import java.io.FileInputStream;
 import java.io.IOException;
@@ -6,14 +6,14 @@ import java.util.Properties;
 
 public class ConfigProperties {
     protected static FileInputStream fileInputStream;
-    protected static Properties PROPERTIES;
-    static String path = "src/test/resources/conf.properties";
+    protected static Properties properties;
+    static String PATH = "src/test/resources/conf.properties";
 
     static {
         try {
-            fileInputStream = new FileInputStream(path);
-            PROPERTIES = new Properties();
-            PROPERTIES.load(fileInputStream);
+            fileInputStream = new FileInputStream(PATH);
+            properties = new Properties();
+            properties.load(fileInputStream);
         } catch (IOException e) {
             e.printStackTrace();
         } finally {
@@ -27,6 +27,6 @@ public class ConfigProperties {
     }
 
     public static String getProperty(String key) {
-        return PROPERTIES.getProperty(key);
+        return properties.getProperty(key);
     }
 }
