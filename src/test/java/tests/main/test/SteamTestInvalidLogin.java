@@ -1,10 +1,8 @@
-package tests.tests;
+package tests.main.test;
 
 import com.framework.base.BaseTest;
-import com.framework.context.WebDriverContext;
 import com.framework.utils.Log;
-import org.openqa.selenium.support.PageFactory;
-import pages.SteamMainPage;
+import tests.main.pages.SteamMainPage;
 import org.testng.annotations.Test;
 
 public class SteamTestInvalidLogin extends BaseTest {

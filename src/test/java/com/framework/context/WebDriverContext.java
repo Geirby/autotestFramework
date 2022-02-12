@@ -5,7 +5,6 @@ import com.framework.utils.ConfigProperties;
 import io.github.bonigarcia.wdm.WebDriverManager;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.chrome.ChromeDriver;
-import org.openqa.selenium.firefox.FirefoxDriver;
 
 public class WebDriverContext {
 
@@ -21,12 +20,10 @@ public class WebDriverContext {
         actualBrowser = browsers.valueOf(ConfigProperties.getProperty("actualBrowser"));
         switch (actualBrowser) {
             case FIREFOX -> {
-                WebDriverManager.firefoxdriver().setup();
-                driverInstance.set(new FirefoxDriver());
+                driverInstance.set(new BrowserFactory().createFireFoxDriver());
             }
             case CHROME -> {
-                WebDriverManager.chromedriver().setup();
-                driverInstance.set(new ChromeDriver());
+                driverInstance.set(new BrowserFactory().createChromeDriver());
             }
             default -> throw new RuntimeException("Enter actual browser");
         }

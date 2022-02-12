@@ -1,12 +1,11 @@
-package tests.tests;
+package tests.main.test;
 
-import com.framework.base.BaseElements;
 import com.framework.base.BaseTest;
 import com.framework.utils.JsonParse;
 import com.framework.utils.WaitForHelper;
 import org.apache.commons.io.FilenameUtils;
 import org.testng.annotations.Test;
-import pages.SteamMainPage;
+import tests.main.pages.SteamMainPage;
 
 import java.io.IOException;
 

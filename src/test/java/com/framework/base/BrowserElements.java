@@ -21,12 +21,12 @@ import java.util.List;
 
 import static org.apache.commons.io.FileUtils.copyInputStreamToFile;
 
-public class BaseElements {
+public class BrowserElements {
 
     protected WebDriver driver = WebDriverContext.getDriver();
     protected WebElement webElement;
 
-    public BaseElements(WebElement webElement) {
+    public BrowserElements(WebElement webElement) {
         this.webElement = webElement;
     }
 
@@ -39,7 +39,7 @@ public class BaseElements {
         webElement.sendKeys(text);
     }
 
-    public String readText() {
+    public String getText() {
         return webElement.getText();
     }
 
@@ -84,4 +84,6 @@ public class BaseElements {
     public void implicitWait() {
         new WaitForHelper(driver).implicitWait();
     }
+
+
 }
