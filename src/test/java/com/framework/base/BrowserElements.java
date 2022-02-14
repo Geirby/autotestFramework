@@ -1,7 +1,6 @@
 package com.framework.base;
 
 import com.framework.context.WebDriverContext;
-import com.framework.utils.JsonParse;
 import com.framework.utils.WaitForHelper;
 import org.apache.hc.client5.http.classic.methods.HttpGet;
 import org.apache.hc.client5.http.impl.classic.CloseableHttpClient;
@@ -15,7 +14,6 @@ import org.openqa.selenium.interactions.Actions;
 
 import java.io.File;
 import java.io.IOException;
-import java.net.http.HttpResponse;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -84,6 +82,4 @@ public class BrowserElements {
     public void implicitWait() {
         new WaitForHelper(driver).implicitWait();
     }
-
-
 }

@@ -1,17 +1,15 @@
 package tests.main.pages;
 
-import com.framework.base.BaseTest;
 import com.framework.base.BrowserElements;
 import com.framework.base.BasePage;
 import com.framework.context.WebDriverContext;
 import com.framework.decorator.CustomFieldDecorator;
 import com.framework.utils.JsonParse;
+import org.openqa.selenium.By;
 import org.openqa.selenium.WebElement;
 import org.openqa.selenium.support.FindBy;
 import org.openqa.selenium.support.PageFactory;
 import org.openqa.selenium.support.ui.Select;
-import tests.main.entity.GameObject;
-
 import java.io.File;
 import java.io.IOException;
 import java.util.ArrayList;
@@ -131,8 +129,8 @@ public class SteamMainPage extends BasePage {
         randomGame.click();
     }
 
-    public void enterGamesNameInSearch(String gamesName) {
-        //validationAgeChecker();
+    public void enterGameNameInSearch(String gamesName) {
+        validationAgeChecker();
         searchInput.enterText(gamesName);
         searchInput.click();
         firstGameInList.waitForElementIsClickable();
@@ -144,7 +142,7 @@ public class SteamMainPage extends BasePage {
     }
 
     public void validationAgeChecker() {
-        if (ageSelectList.isDisplayed()) {
+        if (!WebDriverContext.getDriver().findElements(By.id("ageYear")).isEmpty()) {
             selectValidYear();
             skippAgeValidationDialogButton.click();
         } else {

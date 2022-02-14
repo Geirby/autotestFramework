@@ -7,9 +7,13 @@ import com.framework.decorator.CustomFieldDecorator;
 import org.openqa.selenium.By;
 import org.openqa.selenium.support.FindBy;
 import org.openqa.selenium.support.PageFactory;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import tests.main.entity.GameObject;
 
 public class GamePage extends BasePage {
+
+    private static final Logger log = LoggerFactory.getLogger(GamePage.class.getName());
 
     public GamePage() {
         PageFactory.initElements(new CustomFieldDecorator(WebDriverContext.getDriver()), this);
@@ -26,11 +30,10 @@ public class GamePage extends BasePage {
 
     public GameObject getGamesParameters() {
         String discountValue = null;
-        if(discount != null && !WebDriverContext.getDriver().findElements(By.className("bundle_base_discount")).isEmpty()){
+        if (discount != null && !WebDriverContext.getDriver().findElements(By.className("bundle_base_discount")).isEmpty()) {
             discountValue = discount.getText();
         }
-        return new GameObject(name.getText(),price.getText(),discountValue);
+        log.info("Game object with name " + name.getText() + " price " +  price.getText() + " discount " + discountValue + "parameters was create");
+        return new GameObject(name.getText(), price.getText(), discountValue);
     }
-
-
 }

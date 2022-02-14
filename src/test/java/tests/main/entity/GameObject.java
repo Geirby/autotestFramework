@@ -8,8 +8,8 @@ public class GameObject {
     private String price;
     private String discount;
 
-    public GameObject(String gamesName, String price, String discount) {
-        this.name = gamesName;
+    public GameObject(String name, String price, String discount) {
+        this.name = name;
         this.price = price;
         this.discount = discount;
     }
@@ -18,8 +18,8 @@ public class GameObject {
         return name;
     }
 
-    public void setGamesName(String gamesName) {
-        this.name = gamesName;
+    public void setName(String gameName) {
+        this.name = gameName;
     }
 
     public String getPrice() {

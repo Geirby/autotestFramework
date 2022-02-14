@@ -2,9 +2,7 @@ package com.framework.context;
 
 
 import com.framework.utils.ConfigProperties;
-import io.github.bonigarcia.wdm.WebDriverManager;
 import org.openqa.selenium.WebDriver;
-import org.openqa.selenium.chrome.ChromeDriver;
 
 public class WebDriverContext {
 
