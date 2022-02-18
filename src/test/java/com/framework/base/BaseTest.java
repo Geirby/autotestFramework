@@ -1,6 +1,5 @@
 package com.framework.base;
 
-
 import com.framework.context.WebDriverContext;
 import com.framework.utils.JsonParse;
 import org.slf4j.Logger;
@@ -14,10 +13,8 @@ public abstract class BaseTest {
 
     @BeforeClass
     protected void setupDriver() {
-        WebDriverContext.setDriver();
-        WebDriverContext.getDriver().manage().window().maximize();
         WebDriverContext.getDriver().get(JsonParse.getPropertyFromJson("mainPage"));
-        log.info("Web driver was setup");
+        log.info(JsonParse.getPropertyFromJson("mainPage") + "page was opened");
     }
 
     @AfterClass

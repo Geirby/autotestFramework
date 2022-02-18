@@ -1,6 +1,5 @@
 package com.framework.utils;
 
-import org.json.simple.JSONArray;
 import org.json.simple.JSONObject;
 import org.json.simple.parser.JSONParser;
 import org.json.simple.parser.ParseException;
@@ -8,11 +7,10 @@ import org.json.simple.parser.ParseException;
 import java.io.FileReader;
 import java.io.IOException;
 import java.io.Reader;
-import java.util.Iterator;
 
 public class JsonParse {
 
-    protected static  String PATH = "src/test/resources/confForSteam.json";
+    protected static String PATH = "src/test/resources/confForSteam.json";
     protected static JSONObject jsonObject;
     protected static Reader reader;
 
@@ -30,6 +28,5 @@ public class JsonParse {
     public static String getPropertyFromJson(String key) {
         return jsonObject.get(key).toString();
     }
-
 }
 

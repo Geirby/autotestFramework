@@ -4,19 +4,25 @@ import com.framework.base.BrowserElements;
 import com.framework.base.BasePage;
 import com.framework.context.WebDriverContext;
 import com.framework.decorator.CustomFieldDecorator;
+import com.framework.utils.FileActions;
 import com.framework.utils.JsonParse;
+import com.framework.utils.Randomizer;
 import org.openqa.selenium.By;
 import org.openqa.selenium.WebElement;
 import org.openqa.selenium.support.FindBy;
 import org.openqa.selenium.support.PageFactory;
 import org.openqa.selenium.support.ui.Select;
-import java.io.File;
-import java.io.IOException;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
+import tests.main.entity.GameObject;
+
 import java.util.ArrayList;
 import java.util.List;
-import java.util.Random;
 
 public class SteamMainPage extends BasePage {
+
+    private static final String SKIPP_AGE_VALIDATE = "2000";
+    private static final Logger log = LoggerFactory.getLogger(SteamMainPage.class.getName());
 
     public SteamMainPage() {
         PageFactory.initElements(new CustomFieldDecorator(WebDriverContext.getDriver()), this);
@@ -41,7 +47,7 @@ public class SteamMainPage extends BasePage {
     private BrowserElements installSteamButton;
 
     @FindBy(className = "about_install_steam_link")
-    private BrowserElements downLoadSteamButton;
+    private WebElement downLoadSteamButton;
 
     @FindBy(xpath = "//*[@id=\"genre_tab\"]/span/a[1]")
     private BrowserElements categoriesPullDown;
@@ -58,8 +64,17 @@ public class SteamMainPage extends BasePage {
     @FindBy(xpath = "//*[@id=\"genre_flyout\"]/div/div[2]/div[6]")
     private BrowserElements oneOfGenre;
 
+    @FindBy(xpath = "//*[@id=\"NewReleasesRows\"]/a[1]/div[3]/div[1]")
+    private BrowserElements firstGameNameFromList;
+
+    @FindBy(xpath = "//*[@id=\"NewReleasesRows\"]/a[1]/div[2]/div/div")
+    private BrowserElements firstGamePriceFromList;
+
+    @FindBy(xpath = "//*[@id=\"NewReleasesRows\"]/a[1]/div[2]/div[1]")
+    private BrowserElements firstGameDiscountFromList;
+
     @FindBy(xpath = "//*[@id=\"NewReleasesRows\"]/a")
-    private List<BrowserElements> listOfGames;
+    private List<BrowserElements> gamesList;
 
     @FindBy(id = "store_nav_search_term")
     private BrowserElements searchInput;
@@ -71,7 +86,13 @@ public class SteamMainPage extends BasePage {
     private WebElement ageSelectList;
 
     @FindBy(xpath = "//*[@id=\"search_suggestion_contents\"]/a[1]")
-    private BrowserElements firstGameInList;
+    private BrowserElements firstGameFromList;
+
+    @FindBy(xpath = "//*[@id=\"search_suggestion_contents\"]/a/div[1]")
+    private BrowserElements gameNameFromSearch;
+
+    @FindBy(xpath = "//*[@id=\"search_suggestion_contents\"]/a/div[3]")
+    private BrowserElements gamePriceFromSearch;
 
 
     public void openLoginForm() {
@@ -95,13 +116,9 @@ public class SteamMainPage extends BasePage {
         installSteamButton.click();
     }
 
-    public void downLoadSteamApp() throws IOException {
-        downLoadSteamButton.downloadFile(JsonParse.getPropertyFromJson("pathForDownloadedFiles"));
-    }
-
-    public void deleteFile(String path) {
-        File file = new File(path);
-        file.delete();
+    public void clickOnDownLoadButton() {
+        downLoadSteamButton.click();
+        FileActions.waitForDownloadUniversal(FileActions.PATH_FOR_FILE);
     }
 
     public void waitErrorWindow() {
@@ -118,27 +135,23 @@ public class SteamMainPage extends BasePage {
         allGenres.addAll(firstPartOfGenreList);
         allGenres.addAll(secondPartOfGenreList);
         allGenres.addAll(thirdPartOfGenreList);
-        Random random = new Random();
-        BrowserElements randomGameGenre = allGenres.get(random.nextInt(allGenres.size()));
-        randomGameGenre.click();
+        Randomizer.chooseRandomElementFromList(allGenres).click();
     }
 
     public void clickOnRandomGame() {
-        Random random = new Random();
-        BrowserElements randomGame = listOfGames.get(random.nextInt(listOfGames.size()));
-        randomGame.click();
+        Randomizer.chooseRandomElementFromList(gamesList).getText();
     }
 
     public void enterGameNameInSearch(String gamesName) {
         validationAgeChecker();
         searchInput.enterText(gamesName);
         searchInput.click();
-        firstGameInList.waitForElementIsClickable();
+        firstGameFromList.waitForElementIsClickable();
     }
 
     public void selectValidYear() {
         Select select = new Select(ageSelectList);
-        select.selectByValue("2000");
+        select.selectByValue(SKIPP_AGE_VALIDATE);
     }
 
     public void validationAgeChecker() {
@@ -146,12 +159,24 @@ public class SteamMainPage extends BasePage {
             selectValidYear();
             skippAgeValidationDialogButton.click();
         } else {
-            System.out.println("Game without validation");
+            log.info("Select game don't have age validation");
         }
     }
 
-    public void clickOnFirstGameInList() {
-        firstGameInList.click();
+    public void moveOnFirstGameInSearch() {
+        firstGameFromList.moveToElement();
+    }
+
+    public void clickOnFirstGameInSearch() {
+        firstGameFromList.click();
+    }
+
+    public GameObject getGamesParametersFromList() {
+        return new GameObject(firstGameNameFromList, firstGamePriceFromList, firstGameDiscountFromList);
+    }
+
+    public GameObject getGamesParametersFromSearch() {
+        return new GameObject(gameNameFromSearch, gamePriceFromSearch, null);
     }
 }
 

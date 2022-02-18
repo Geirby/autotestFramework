@@ -1,6 +1,5 @@
 package com.framework.context;
 
-
 import com.framework.utils.ConfigProperties;
 import org.openqa.selenium.WebDriver;
 
@@ -32,6 +31,10 @@ public class WebDriverContext {
     }
 
     public static WebDriver getDriver() {
+        if (driverInstance.get() == null){
+            setDriver();
+            return driverInstance.get();
+        }
         return driverInstance.get();
     }
 

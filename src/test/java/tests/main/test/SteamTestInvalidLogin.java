@@ -1,7 +1,6 @@
 package tests.main.test;
 
 import com.framework.base.BaseTest;
-import org.apache.commons.logging.Log;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import tests.main.pages.SteamMainPage;
@@ -20,8 +19,5 @@ public class SteamTestInvalidLogin extends BaseTest {
         steamMainPage.clickOnLogInBtn();
         steamMainPage.waitErrorWindow();
         steamMainPage.errorWindowIsDisplayed();
-
     }
-
-
 }

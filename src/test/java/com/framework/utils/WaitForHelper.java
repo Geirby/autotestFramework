@@ -1,13 +1,10 @@
 package com.framework.utils;
 
-import org.openqa.selenium.By;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
-import org.openqa.selenium.support.ui.ExpectedCondition;
 import org.openqa.selenium.support.ui.ExpectedConditions;
 import org.openqa.selenium.support.ui.WebDriverWait;
 
-import java.io.File;
 import java.util.List;
 import java.util.concurrent.TimeUnit;
 
@@ -48,20 +45,6 @@ public class WaitForHelper {
         } catch (Exception e) {
             throw new RuntimeException("Element" + element.toString() + " not found");
         }
-    }
-
-    public static boolean isFileDownloaded(String downloadPath, String fileName) {
-        File dir = new File(downloadPath);
-        File[] dir_contents = dir.listFiles();
-
-        if (dir_contents != null) {
-            for (File dir_content : dir_contents) {
-                if (dir_content.getName().equals(fileName))
-                    return true;
-            }
-        }
-
-        return false;
     }
 }
 
