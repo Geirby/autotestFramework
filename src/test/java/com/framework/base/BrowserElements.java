@@ -69,6 +69,10 @@ public class BrowserElements {
 
     public void implicitWait() {
         new WaitForHelper(driver).implicitWait();
-        log.info("element became clickable " + webElement.toString());
+        log.info("element loaded " + webElement.toString());
+    }
+
+    public void switchToIframe () {
+        driver.switchTo().frame(webElement);
     }
 }

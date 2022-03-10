@@ -1,0 +1,9 @@
+{
+  "from": "qa.automation@mail.ru",
+  "to": "qa.automation1190@yopmail.com",
+  "cc": "qa.automation1191@mailto.plus",
+  "subject": "Test SMTP",
+  "text": "This message sended by JavaMailApi",
+  "date": "",
+  "password": "PfkXDHnYJaFn0pKn7JAt"
+}
