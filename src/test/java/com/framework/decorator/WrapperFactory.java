@@ -5,11 +5,6 @@ import org.openqa.selenium.WebElement;
 
 public class WrapperFactory {
 
-    /**
-     * Создает экземпляр класса,
-     * реализующий IElement интерфейс,
-     * вызывая конструктор с аргументом WebElement
-     */
     public static BrowserElements createInstance(Class<BrowserElements> clazz,
                                                  WebElement element) {
         try {

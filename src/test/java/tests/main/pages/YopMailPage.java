@@ -10,37 +10,35 @@ import tests.main.entity.EmailData;
 
 public class YopMailPage extends BasePage {
 
-    public YopMailPage() {
-        PageFactory.initElements(new CustomFieldDecorator(WebDriverContext.getDriver()), this);
-    }
-
-    @FindBy(xpath = "//*[@class = 'ycptinput']")
+    @FindBy(xpath = "//*[@class='ycptinput']")
     private BrowserElements mailInputField;
 
-    @FindBy(xpath = "/html/body/header/div[3]/div[1]")
+    @FindBy(xpath = "//*[@class='fl']/div[1]")
     private BrowserElements emailSubject;
 
-    @FindBy(id = "mail")
+    @FindBy(xpath = "//*[@id=\"mail\"]/pre")
     private BrowserElements emailBody;
 
     @FindBy(id = "ifmail")
     private BrowserElements iframe;
 
-    public void enterEmailInField() {
-        String partOfEmail = "qa.automation1190";
-        mailInputField.enterText(partOfEmail);
+    public YopMailPage() {
+        PageFactory.initElements(new CustomFieldDecorator(WebDriverContext.getDriver()), this);
+    }
+
+    public void enterEmailInField(String mail) {
+        mailInputField.enterText(mail);
         mailInputField.pressEnter();
     }
 
     public void switchToIframe() {
-        iframe.switchToIframe();
+        WebDriverContext.switchToIframe(iframe.getWebElement());
     }
 
     public EmailData getEmailParameters() {
-        //return new EmailData(emailSubject.getText(), emailBody.getText());
         EmailData emailData = new EmailData();
         emailData.setSubject(emailSubject.getText());
-        emailData.setBody(emailBody.getText());
+        emailData.setText(emailBody.getText());
         return emailData;
     }
 }

@@ -12,7 +12,7 @@ public class EmailData {
     private static final Logger log = LoggerFactory.getLogger(EmailData.class.getName());
 
     private String subject;
-    private String body;
+    private String text;
 
     public EmailData() {
     }
@@ -22,20 +22,20 @@ public class EmailData {
         if (this == o) return true;
         if (o == null || getClass() != o.getClass()) return false;
         EmailData that = (EmailData) o;
-        return Objects.equals(subject, that.subject) && Objects.equals(body, that.body);
+        return Objects.equals(subject, that.subject) && Objects.equals(text, that.text);
     }
 
     @Override
     public int hashCode() {
-        return Objects.hash(subject, body);
+        return Objects.hash(subject, text);
     }
 
     public void setSubject(String subject) {
         this.subject = subject;
     }
 
-    public void setBody(String body) {
-        this.body = body;
+    public void setText(String text) {
+        this.text = text;
     }
 
     public String getSubject() {
@@ -43,8 +43,8 @@ public class EmailData {
         return subject;
     }
 
-    public String getBody() {
-        log.info("Get body value " + body);
-        return body;
+    public String getText() {
+        log.info("Get body value " + text);
+        return text;
     }
 }

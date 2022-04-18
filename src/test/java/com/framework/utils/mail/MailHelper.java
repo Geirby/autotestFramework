@@ -10,17 +10,16 @@ import javax.mail.internet.MimeMessage;
 import javax.mail.internet.MimeMultipart;
 import java.util.Properties;
 
-public class SendEmail {
+public class MailHelper {
 
-    private static final Logger log = LoggerFactory.getLogger(SendEmail.class);
+    private static final Logger log = LoggerFactory.getLogger(MailHelper.class);
     public static final String SMTP_MAIL_RU = "smtp.mail.ru";
     public static final String SMTP_MAIL_RU_PORT = "465";
+    public static final String MAIL_CONTENT_TYPE = "text/plain; charset=utf-8";
 
-    private Message message;
+    private static final Properties properties = initProperties();
 
-
-
-    public SendEmail(final MailConfig config) {
+    private static Properties initProperties() {
         Properties properties = new Properties();
         properties.put("mail.smtp.host", SMTP_MAIL_RU);
         properties.put("mail.smtp.port", SMTP_MAIL_RU_PORT);
@@ -28,6 +27,11 @@ public class SendEmail {
         properties.put("mail.smtp.ssl.enable", "true");
         properties.put("mail.smtp.socketFactory.class",
                 "javax.net.ssl.SSLSocketFactory");
+        return properties;
+    }
+
+    private static MimeMessage createMimeMessage(MailEntity config) {
+       MimeMessage mimeMessage = null;
         try {
             Authenticator auth = new EmailAuthenticator(config.getFrom(),
                     config.getPassword());
@@ -37,28 +41,30 @@ public class SendEmail {
             InternetAddress emailFrom = new InternetAddress(config.getFrom());
             InternetAddress emailTo = new InternetAddress(config.getTo());
             InternetAddress[] cc = InternetAddress.parse(config.getCc());
-            message = new MimeMessage(session);
-            message.setFrom(emailFrom);
-            message.setRecipients(Message.RecipientType.CC, cc);
-            message.setRecipient(Message.RecipientType.TO, emailTo);
-            message.setSubject(config.getSubject());
+            mimeMessage = new MimeMessage(session);
+            mimeMessage.setFrom(emailFrom);
+            mimeMessage.setRecipients(Message.RecipientType.CC, cc);
+            mimeMessage.setRecipient(Message.RecipientType.TO, emailTo);
+            mimeMessage.setSubject(config.getSubject());
         } catch (MessagingException e) {
-            log.error(e.getMessage());
+            log.error("Can not create mime message", e);
         }
+        return mimeMessage;
     }
 
-    public boolean sendMessage(final String text) {
+    public static boolean sendMessage(final MailEntity mailEntity) {
         boolean result = false;
         try {
+            MimeMessage message = createMimeMessage(mailEntity);
             Multipart mmp = new MimeMultipart();
             MimeBodyPart bodyPart = new MimeBodyPart();
-            bodyPart.setContent(text, "text/plain; charset=utf-8");
+            bodyPart.setContent(mailEntity.getText(), MAIL_CONTENT_TYPE);
             mmp.addBodyPart(bodyPart);
             message.setContent(mmp);
             Transport.send(message);
             result = true;
         } catch (MessagingException e) {
-            log.error(e.getMessage());
+            log.error("Mail can not be sent", e);
         }
         return result;
     }

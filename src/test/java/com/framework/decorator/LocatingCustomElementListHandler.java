@@ -1,4 +1,5 @@
 package com.framework.decorator;
+
 import java.lang.reflect.InvocationHandler;
 import java.lang.reflect.InvocationTargetException;
 import java.lang.reflect.Method;
@@ -22,8 +23,6 @@ public class LocatingCustomElementListHandler
 
     public Object invoke(Object object, Method method,
                          Object[] objects) throws Throwable {
-        // Находит список WebElement и обрабатывает каждый его элемент,
-        // возвращает новый список с элементами кастомного класса
         List<WebElement> elements = locator.findElements();
         List<BrowserElements> customs = new ArrayList<BrowserElements>();
 

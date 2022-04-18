@@ -67,12 +67,7 @@ public class BrowserElements {
         new WaitForHelper(driver).elementIsAppeared(webElement);
     }
 
-    public void implicitWait() {
-        new WaitForHelper(driver).implicitWait();
-        log.info("element loaded " + webElement.toString());
-    }
-
-    public void switchToIframe () {
-        driver.switchTo().frame(webElement);
+    public WebElement getWebElement() {
+        return webElement;
     }
 }

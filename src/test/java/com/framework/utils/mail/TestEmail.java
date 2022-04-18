@@ -14,12 +14,11 @@ public class TestEmail {
     public static void main(String[] args) {
         try {
             ObjectMapper mapper = new ObjectMapper();
-            MailConfig mailConfig = mapper.readValue(Paths.get("src/test/resources/email.properties.json").toFile(), MailConfig.class);
+            MailEntity mailEntity = mapper.readValue(Paths.get("src/test/resources/email.properties.json").toFile(), MailEntity.class);
 
-            if (mailConfig != null) {
+            if (mailEntity != null) {
 
-                SendEmail se = new SendEmail(mailConfig);
-                se.sendMessage(mailConfig.getText());
+                MailHelper.sendMessage(mailEntity);
                 log.info("Message was sent");
             }
         } catch (IOException e) {

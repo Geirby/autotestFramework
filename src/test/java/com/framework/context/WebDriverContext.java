@@ -1,29 +1,21 @@
 package com.framework.context;
 
 import com.framework.utils.ConfigProperties;
+import com.framework.utils.WaitForHelper;
 import org.openqa.selenium.WebDriver;
+import org.openqa.selenium.WebElement;
 
 public class WebDriverContext {
 
     private static final InheritableThreadLocal<WebDriver> driverInstance = new InheritableThreadLocal<>();
 
-    enum browsers {
+    enum Browsers {
         CHROME,
         FIREFOX
     }
 
     public static void setDriver() {
-        browsers actualBrowser;
-        actualBrowser = browsers.valueOf(ConfigProperties.getProperty("actualBrowser"));
-        switch (actualBrowser) {
-            case FIREFOX -> {
-                driverInstance.set(new BrowserFactory().createFireFoxDriver());
-            }
-            case CHROME -> {
-                driverInstance.set(new BrowserFactory().createChromeDriver());
-            }
-            default -> throw new RuntimeException("Enter actual browser");
-        }
+        driverInstance.set(BrowserFactory.createWebDriver(Browsers.valueOf(ConfigProperties.getProperty("actualBrowser"))));
     }
 
     public static void removeDriver() {
@@ -40,6 +32,15 @@ public class WebDriverContext {
 
     public static void quiteDriver() {
         driverInstance.get().quit();
+    }
+
+    public static void implicitWait() {
+        new WaitForHelper(driverInstance.get()).implicitWait();
+
+    }
+
+    public static void switchToIframe (WebElement webElement) {
+        driverInstance.get().switchTo().frame(webElement);
     }
 }
 

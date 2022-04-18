@@ -1,4 +1,5 @@
 package com.framework.decorator;
+
 import java.lang.reflect.Field;
 import java.lang.reflect.InvocationHandler;
 import java.lang.reflect.ParameterizedType;
@@ -22,9 +23,6 @@ public class CustomFieldDecorator extends DefaultFieldDecorator {
         super(new DefaultElementLocatorFactory(searchContext));
     }
 
-    /**
-     * Метод вызывается фабрикой для каждого поля в классе
-     */
     @Override
     public Object decorate(ClassLoader loader, Field field) {
         Class<BrowserElements> decoratableClass = decoratableClass(field);
@@ -44,11 +42,6 @@ public class CustomFieldDecorator extends DefaultFieldDecorator {
         return super.decorate(loader, field);
     }
 
-    /**
-     * Возвращает декорируемый класс поля,
-     * либо null если класс не подходит для декоратора
-     */
-    @SuppressWarnings("unchecked")
     private Class<BrowserElements> decoratableClass(Field field) {
 
         Class<?> clazz = field.getType();
@@ -73,37 +66,27 @@ public class CustomFieldDecorator extends DefaultFieldDecorator {
 
         if (BrowserElements.class.isAssignableFrom(clazz)) {
             return (Class<BrowserElements>) clazz;
-        }
-        else {
+        } else {
             return null;
         }
     }
 
-    /**
-     * Создание элемента.
-     * Находит WebElement и передает его в кастомный класс
-     */
     protected BrowserElements createElement(ClassLoader loader,
-                                     ElementLocator locator,
-                                     Class<BrowserElements> clazz) {
+                                            ElementLocator locator,
+                                            Class<BrowserElements> clazz) {
         WebElement proxy = proxyForLocator(loader, locator);
         return WrapperFactory.createInstance(clazz, proxy);
     }
 
-    /**
-     * Создание списка
-     */
-    @SuppressWarnings("unchecked")
     protected List<BrowserElements> createList(ClassLoader loader,
-                                        ElementLocator locator,
-                                        Class<BrowserElements> clazz) {
+                                               ElementLocator locator,
+                                               Class<BrowserElements> clazz) {
 
         InvocationHandler handler =
                 new LocatingCustomElementListHandler(locator, clazz);
         List<BrowserElements> elements =
                 (List<BrowserElements>) Proxy.newProxyInstance(
-                        loader, new Class[] {List.class}, handler);
+                        loader, new Class[]{List.class}, handler);
         return elements;
     }
-
 }

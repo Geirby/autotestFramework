@@ -1,6 +1,6 @@
 package com.framework.utils.mail;
 
-public class MailConfig {
+public class MailEntity {
 
     private String from;
     private String to;
@@ -10,10 +10,10 @@ public class MailConfig {
     private String date;
     private String password;
 
-    public MailConfig() {
+    public MailEntity() {
     }
 
-    public MailConfig(String from, String to, String cc, String text, String subject, String date, String password) {
+    public MailEntity(String from, String to, String cc, String text, String subject, String date, String password) {
         this.from = from;
         this.to = to;
         this.cc = cc;
