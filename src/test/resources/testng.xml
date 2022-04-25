@@ -3,7 +3,7 @@
 <suite name="Suite1" verbose="1" >
     <test name="SteamRandomGamesList" >
         <classes>
-            <class name="tests.main.test.SteamRandomGamesList" />
+            <class name="tests.main.test.AlertsTest" />
             <class name="tests.main.test.SteamDownloadAppTest"/>
             <class name="tests.main.test.SteamTestInvalidLogin"/>
         </classes>

@@ -10,7 +10,7 @@ import java.io.Reader;
 
 public class JsonParse {
 
-    protected static String PATH = "src/test/resources/email.properties.json";
+    protected static String PATH = "src/test/resources/demoqa.properties.json";
     protected static JSONObject jsonObject;
     protected static Reader reader;
 

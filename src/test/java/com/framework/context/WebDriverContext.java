@@ -2,8 +2,11 @@ package com.framework.context;
 
 import com.framework.utils.ConfigProperties;
 import com.framework.utils.WaitForHelper;
+import org.openqa.selenium.Alert;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
+import org.openqa.selenium.support.ui.ExpectedCondition;
+import org.openqa.selenium.support.ui.WebDriverWait;
 
 public class WebDriverContext {
 
@@ -23,7 +26,7 @@ public class WebDriverContext {
     }
 
     public static WebDriver getDriver() {
-        if (driverInstance.get() == null){
+        if (driverInstance.get() == null) {
             setDriver();
             return driverInstance.get();
         }
@@ -39,7 +42,37 @@ public class WebDriverContext {
 
     }
 
-    public static void switchToIframe (WebElement webElement) {
+    public static void acceptAlert() {
+        driverInstance.get().switchTo().alert().accept();
+    }
+
+    public static Alert waitAlert(final long time) {
+        return new WebDriverWait(driverInstance.get(), time, 200).until(new ExpectedCondition<Alert>() {
+            @Override
+            public Alert apply(WebDriver d) {
+                Alert alert = d.switchTo().alert();
+                if (alert != null) {
+                    return alert;
+                } else {
+                    return null;
+                }
+            }
+        });
+    }
+
+    public static void dismissAlert() {
+        driverInstance.get().switchTo().alert().dismiss();
+    }
+
+    public static void getTextFromAlert() {
+        driverInstance.get().switchTo().alert().getText();
+    }
+
+    public static void sendKeysAlert(String keys) {
+        driverInstance.get().switchTo().alert().sendKeys(keys);
+    }
+
+    public static void switchToIframe(WebElement webElement) {
         driverInstance.get().switchTo().frame(webElement);
     }
 }

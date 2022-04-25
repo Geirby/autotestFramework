@@ -1,0 +1,27 @@
+package tests.main.test;
+
+import com.framework.context.WebDriverContext;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
+import org.testng.annotations.Test;
+import tests.main.pages.AlertsPage;
+
+public class AlertsTest {
+
+    private static final Logger log = LoggerFactory.getLogger(SendMailTest.class.getName());
+
+    @Test
+    public void alertsTest (){
+        log.info("Alerts test was start");
+        AlertsPage alertsPage = new AlertsPage();
+        alertsPage.openAlertsPage();
+        alertsPage.clickOnAlertButton();
+        WebDriverContext.acceptAlert();
+        alertsPage.clickOnTimerAlertButton();
+        WebDriverContext.waitAlert(5000);
+        WebDriverContext.acceptAlert();
+
+
+
+    }
+}
