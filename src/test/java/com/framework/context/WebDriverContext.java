@@ -8,6 +8,8 @@ import org.openqa.selenium.WebElement;
 import org.openqa.selenium.support.ui.ExpectedCondition;
 import org.openqa.selenium.support.ui.WebDriverWait;
 
+import java.util.Set;
+
 public class WebDriverContext {
 
     private static final InheritableThreadLocal<WebDriver> driverInstance = new InheritableThreadLocal<>();
@@ -74,6 +76,16 @@ public class WebDriverContext {
 
     public static void switchToIframe(WebElement webElement) {
         driverInstance.get().switchTo().frame(webElement);
+    }
+
+    public static void switchToTab(Integer tabsNumber) {
+        driverInstance.get().getWindowHandles();
+
+        driverInstance.get().switchTo().window();
+    }
+
+    public static Set<String> getListsOfHandle() {
+        return driverInstance.get().getWindowHandles();
     }
 }
 

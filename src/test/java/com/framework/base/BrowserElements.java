@@ -25,7 +25,7 @@ public class BrowserElements {
 
     public void click() {
         webElement.click();
-//        log.info(webElement.toString() + " was click");
+        //log.info(webElement.toString() + " was click");
     }
 
     public void enterText(String text) {

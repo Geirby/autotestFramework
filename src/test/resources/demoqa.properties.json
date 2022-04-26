@@ -1,4 +1,5 @@
 {
   "alertsPage": "https://demoqa.com/alerts",
-  "mainPage": "https://demoqa.com/"
+  "mainPage": "https://demoqa.com/",
+  "browserWindowsPage": "https://demoqa.com/browser-windows"
 }
