@@ -2,15 +2,20 @@ package com.framework.base;
 
 import com.framework.context.WebDriverContext;
 import com.framework.utils.WaitForHelper;
+import org.checkerframework.checker.units.qual.A;
+import org.openqa.selenium.Dimension;
 import org.openqa.selenium.Keys;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
+import org.openqa.selenium.interactions.Action;
 import org.openqa.selenium.interactions.Actions;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
+import org.testng.Assert;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Queue;
 
 public class BrowserElements {
 
@@ -70,4 +75,17 @@ public class BrowserElements {
     public WebElement getWebElement() {
         return webElement;
     }
+
+    public void moveSliderToValue(int maxValue, int value) {
+        double elementLocationX = webElement.getLocation().x;
+        double elementWidth = webElement.getSize().width * 0.965;
+        double elementLocationXAfterValue = (elementWidth / maxValue) * value;
+        log.info(String.valueOf(elementLocationX));
+        log.info(String.valueOf(elementWidth));
+        Actions action = new Actions(driver);
+        log.info(String.valueOf(elementLocationXAfterValue));
+        action.dragAndDropBy(webElement, (int)(elementLocationXAfterValue - (elementWidth/2)), 0).perform();
+    }
+
+
 }

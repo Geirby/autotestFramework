@@ -22,6 +22,9 @@ public class BrowserWindowsPage extends BasePage {
     @FindBy(id = "sampleHeading")
     private BrowserElements sampleHeading;
 
+    @FindBy(xpath = "/html/body")
+    private BrowserElements pageBody;
+
     public void openBrowserWindowsPage() {
         WebDriverContext.getDriver().get((JsonParse.getPropertyFromJson("browserWindowsPage")));
     }
@@ -40,5 +43,13 @@ public class BrowserWindowsPage extends BasePage {
 
     public void clickOnMessageWindowButton() {
         messageWindowButton.click();
+    }
+
+    public String getTextFromSampleHeading() {
+        return sampleHeading.getText();
+    }
+
+    public String getTextFromBody() {
+        return pageBody.getText();
     }
 }

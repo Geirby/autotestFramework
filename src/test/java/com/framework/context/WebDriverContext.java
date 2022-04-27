@@ -8,6 +8,8 @@ import org.openqa.selenium.WebElement;
 import org.openqa.selenium.support.ui.ExpectedCondition;
 import org.openqa.selenium.support.ui.WebDriverWait;
 
+import java.util.ArrayList;
+import java.util.LinkedHashMap;
 import java.util.Set;
 
 public class WebDriverContext {
@@ -78,14 +80,13 @@ public class WebDriverContext {
         driverInstance.get().switchTo().frame(webElement);
     }
 
-    public static void switchToTab(Integer tabsNumber) {
-        driverInstance.get().getWindowHandles();
-
-        driverInstance.get().switchTo().window();
+    public static void switchToTab(String handleOfTab) {
+        driverInstance.get().switchTo().window(handleOfTab);
     }
 
-    public static Set<String> getListsOfHandle() {
-        return driverInstance.get().getWindowHandles();
+    public static String getHandle(Integer numberOfHandle) {
+        ArrayList<String> listOfHandle = new ArrayList<String> (driverInstance.get().getWindowHandles());
+        return listOfHandle.get(numberOfHandle);
     }
 }
 
