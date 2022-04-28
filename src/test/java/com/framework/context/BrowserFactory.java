@@ -19,7 +19,7 @@ public class BrowserFactory {
     private static WebDriver createFireFoxDriver() {
         WebDriverManager.firefoxdriver().setup();
         FirefoxOptions options = new FirefoxOptions();
-        options.setBinary(JsonParse.getPropertyFromJson("pathForDefaultDownloadFolder"));
+       // options.setBinary(JsonParse.getPropertyFromJson("pathForDefaultDownloadFolder"));
         FirefoxDriver firefoxDriver = new FirefoxDriver(options);
         firefoxDriver.manage().window().maximize();
         return firefoxDriver;

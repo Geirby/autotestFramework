@@ -1,11 +1,11 @@
 <!DOCTYPE suite SYSTEM "https://testng.org/testng-1.0.dtd" >
 
 <suite name="Suite1" verbose="1" >
-    <test name="SteamRandomGamesList" >
+    <test name="Demo qa test" >
         <classes>
             <class name="tests.main.test.AlertsTest" />
-            <class name="tests.main.test.SteamDownloadAppTest"/>
-            <class name="tests.main.test.SteamTestInvalidLogin"/>
+            <class name="tests.main.test.BrowserWindowsTest"/>
+            <class name="tests.main.test.SliderTest"/>
         </classes>
     </test>
 </suite>

@@ -1,9 +1,5 @@
 package com.framework.utils.mail;
 
-import org.asynchttpclient.Response;
-import org.json.simple.JSONObject;
-import tests.main.entity.EmailData;
-
 import static io.restassured.RestAssured.get;
 
 public class GetParametersFromRequest {

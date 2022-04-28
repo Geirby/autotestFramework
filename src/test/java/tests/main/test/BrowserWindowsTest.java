@@ -12,7 +12,7 @@ import tests.main.pages.BrowserWindowsPage;
 
 public class BrowserWindowsTest {
 
-    private static final Logger log = LoggerFactory.getLogger(SendMailTest.class.getName());
+    private static final Logger log = LoggerFactory.getLogger(BrowserWindowsTest.class.getName());
 
     @Test
     public void browserWindowsTest() {
@@ -34,5 +34,6 @@ public class BrowserWindowsTest {
         WebDriverContext.switchToTab(WebDriverContext.getHandle(1));
         Assert.assertEquals(browserWindowsPage.getTextFromBody(), JsonParse.getPropertyFromJson("message"), "text is the same");
         WebDriverContext.getDriver().close();
+        WebDriverContext.switchToTab(parentHandle);
     }
 }

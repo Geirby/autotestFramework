@@ -10,11 +10,11 @@ import tests.main.pages.AlertsPage;
 
 public class AlertsTest {
 
-    private static final Logger log = LoggerFactory.getLogger(SendMailTest.class.getName());
+    private static final Logger log = LoggerFactory.getLogger(AlertsTest.class.getName());
     public static final String TEST = "test";
 
     @Test
-    public void alertsTest (){
+    public void alertsTest() {
         log.info("Alerts test was start");
         AlertsPage alertsPage = new AlertsPage();
         alertsPage.openAlertsPage();
@@ -26,10 +26,10 @@ public class AlertsTest {
         SoftAssert softAssert = new SoftAssert();
         alertsPage.clickOnConfirmButton();
         WebDriverContext.acceptAlert();
-        softAssert.assertTrue(alertsPage.confirmResultIsDisplayed(),"status was change");
+        softAssert.assertTrue(alertsPage.confirmResultIsDisplayed(), "status was change");
         alertsPage.clickOnPromtButton();
         WebDriverContext.sendKeysAlert(TEST);
         WebDriverContext.acceptAlert();
-        softAssert.assertEquals(alertsPage.getTextFromPromtResult(),TEST,"promt result is correct");
+        softAssert.assertEquals(alertsPage.getTextFromPromtResult(), TEST, "promt result is correct");
     }
 }

@@ -65,6 +65,6 @@ public class AlertsPage extends BasePage {
 
     public String getTextFromPromtResult() {
         String promtText = promptResult.getText();
-        return promtText.substring(promtText.lastIndexOf(" ")+1);
+        return promtText.substring(promtText.lastIndexOf(" ") + 1);
     }
 }

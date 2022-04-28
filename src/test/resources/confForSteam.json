@@ -1,8 +1,0 @@
-{
-  "mainPage": "https://demoqa.com/",
-  "invalidEmail": "",
-  "invalidPassword": 123456,
-  "pathForDownloadedFiles": "src/test/resources/download/SteamSetup.exe",
-  "pathForDefaultDownloadFolder": "src/test/resources/download",
-  "fileName": "SteamSetup"
-}

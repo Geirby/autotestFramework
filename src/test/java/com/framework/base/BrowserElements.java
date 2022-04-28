@@ -80,12 +80,11 @@ public class BrowserElements {
         double elementLocationX = webElement.getLocation().x;
         double elementWidth = webElement.getSize().width * 0.965;
         double elementLocationXAfterValue = (elementWidth / maxValue) * value;
-        log.info(String.valueOf(elementLocationX));
-        log.info(String.valueOf(elementWidth));
         Actions action = new Actions(driver);
-        log.info(String.valueOf(elementLocationXAfterValue));
-        action.dragAndDropBy(webElement, (int)(elementLocationXAfterValue - (elementWidth/2)), 0).perform();
+        action.dragAndDropBy(webElement, (int) (elementLocationXAfterValue - (elementWidth / 2)), 0).perform();
     }
 
-
+    public String getAttribute(String attribute) {
+        return webElement.getAttribute(attribute);
+    }
 }

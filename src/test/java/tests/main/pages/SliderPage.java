@@ -11,7 +11,7 @@ import org.openqa.selenium.support.PageFactory;
 
 public class SliderPage extends BasePage {
 
-    @FindBy(xpath= "//*[@id=\"sliderContainer\"]/div[1]/span/input")
+    @FindBy(xpath = "//*[@id=\"sliderContainer\"]/div[1]/span/input")
     private BrowserElements sliderElement;
 
     @FindBy(id = "sliderValue")
@@ -26,11 +26,11 @@ public class SliderPage extends BasePage {
     }
 
     public void moveSliderToValue(Integer maxValue, Integer value) {
-       sliderElement.moveSliderToValue(maxValue,value);
+        sliderElement.moveSliderToValue(maxValue, value);
     }
 
-    /*public int getTextFromSlide() {
-        return Integer.parseInt(sliderValue.());
-    }*/
+    public int getTextFromSlide() {
+        return Integer.parseInt(sliderValue.getAttribute("value"));
+    }
 
 }
