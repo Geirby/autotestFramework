@@ -1,6 +1,6 @@
 {
   "alertsPage": "https://demoqa.com/alerts",
-  "mainPage": "https://demoqa.com/",
+  "mainPage": "https://demoqa.com/alertsWindows",
   "browserWindowsPage": "https://demoqa.com/browser-windows",
   "text": "This is a sample page",
   "message": "Knowledge increases by sharing but not by saving. Please share this website with your friends and in your organization.",

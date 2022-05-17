@@ -19,7 +19,6 @@ public class BrowserFactory {
     private static WebDriver createFireFoxDriver() {
         WebDriverManager.firefoxdriver().setup();
         FirefoxOptions options = new FirefoxOptions();
-       // options.setBinary(JsonParse.getPropertyFromJson("pathForDefaultDownloadFolder"));
         FirefoxDriver firefoxDriver = new FirefoxDriver(options);
         firefoxDriver.manage().window().maximize();
         return firefoxDriver;
@@ -28,12 +27,9 @@ public class BrowserFactory {
     private static WebDriver createChromeDriver() {
         WebDriverManager.chromedriver().setup();
         Map<String, Object> prefs = new HashMap<String, Object>();
-        //prefs.put("download.default_directory", DOWNLOAD_DEFAULT_PATH);
-        //prefs.put("safebrowsing.enabled", "true");
         ChromeOptions options = new ChromeOptions();
         options.setExperimentalOption("prefs", prefs);
         options.addArguments("start-maximized");
-        //options.addArguments("disable-popup-blocking");
         return new ChromeDriver(options);
     }
 

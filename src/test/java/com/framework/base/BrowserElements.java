@@ -2,20 +2,16 @@ package com.framework.base;
 
 import com.framework.context.WebDriverContext;
 import com.framework.utils.WaitForHelper;
-import org.checkerframework.checker.units.qual.A;
-import org.openqa.selenium.Dimension;
+import org.openqa.selenium.By;
 import org.openqa.selenium.Keys;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
-import org.openqa.selenium.interactions.Action;
 import org.openqa.selenium.interactions.Actions;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
-import org.testng.Assert;
 
 import java.util.ArrayList;
 import java.util.List;
-import java.util.Queue;
 
 public class BrowserElements {
 
@@ -23,14 +19,12 @@ public class BrowserElements {
     protected WebDriver driver = WebDriverContext.getDriver();
     protected WebElement webElement;
 
-
     public BrowserElements(WebElement webElement) {
         this.webElement = webElement;
     }
 
     public void click() {
         webElement.click();
-        //log.info(webElement.toString() + " was click");
     }
 
     public void enterText(String text) {
@@ -80,11 +74,25 @@ public class BrowserElements {
         double elementLocationX = webElement.getLocation().x;
         double elementWidth = webElement.getSize().width * 0.965;
         double elementLocationXAfterValue = (elementWidth / maxValue) * value;
+        log.info(String.valueOf(elementLocationX));
+        log.info(String.valueOf(elementWidth));
         Actions action = new Actions(driver);
+        log.info(String.valueOf(elementLocationXAfterValue));
         action.dragAndDropBy(webElement, (int) (elementLocationXAfterValue - (elementWidth / 2)), 0).perform();
+    }
+
+    public boolean isExist() {
+        return webElement.isDisplayed();
     }
 
     public String getAttribute(String attribute) {
         return webElement.getAttribute(attribute);
     }
+
+    public BrowserElements foundById(String id) {
+        return new BrowserElements(webElement.findElement(By.id(id)));
+    }
 }
+
+
+

@@ -26,7 +26,6 @@ public class CustomFieldDecorator extends DefaultFieldDecorator {
     @Override
     public Object decorate(ClassLoader loader, Field field) {
         Class<BrowserElements> decoratableClass = decoratableClass(field);
-        // если класс поля декорируемый
         if (decoratableClass != null) {
             ElementLocator locator = factory.createLocator(field);
             if (locator == null) {
@@ -48,18 +47,15 @@ public class CustomFieldDecorator extends DefaultFieldDecorator {
 
         if (List.class.isAssignableFrom(clazz)) {
 
-            // для списка обязательно должна быть задана аннотация
             if (field.getAnnotation(FindBy.class) == null &&
                     field.getAnnotation(FindBys.class) == null) {
                 return null;
             }
 
-            // Список должен быть параметризирован
             Type genericType = field.getGenericType();
             if (!(genericType instanceof ParameterizedType)) {
                 return null;
             }
-            // получаем класс для элементов списка
             clazz = (Class<?>) ((ParameterizedType) genericType).
                     getActualTypeArguments()[0];
         }

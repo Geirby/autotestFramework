@@ -5,11 +5,12 @@ import com.framework.base.BrowserElements;
 import com.framework.context.WebDriverContext;
 import com.framework.decorator.CustomFieldDecorator;
 import com.framework.utils.JsonParse;
-import org.openqa.selenium.JavascriptExecutor;
 import org.openqa.selenium.support.FindBy;
 import org.openqa.selenium.support.PageFactory;
 
 public class SliderPage extends BasePage {
+
+    public static final int MAX_VALUE_OF_SLIDER = 100;
 
     @FindBy(xpath = "//*[@id=\"sliderContainer\"]/div[1]/span/input")
     private BrowserElements sliderElement;
@@ -25,8 +26,8 @@ public class SliderPage extends BasePage {
         WebDriverContext.getDriver().get((JsonParse.getPropertyFromJson("sliderPage")));
     }
 
-    public void moveSliderToValue(Integer maxValue, Integer value) {
-        sliderElement.moveSliderToValue(maxValue, value);
+    public void moveSliderToValue( Integer value) {
+        sliderElement.moveSliderToValue(MAX_VALUE_OF_SLIDER, value);
     }
 
     public int getTextFromSlide() {

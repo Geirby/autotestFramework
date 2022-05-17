@@ -14,7 +14,6 @@ public abstract class BaseTest {
     @BeforeClass
     protected void setupDriver() {
         WebDriverContext.getDriver().get(JsonParse.getPropertyFromJson("mainPage"));
-        //log.info(JsonParse.getPropertyFromJson("mainPage") + "page was opened");
     }
 
     @AfterClass

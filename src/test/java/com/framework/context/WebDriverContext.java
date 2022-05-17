@@ -3,18 +3,23 @@ package com.framework.context;
 import com.framework.utils.ConfigProperties;
 import com.framework.utils.WaitForHelper;
 import org.openqa.selenium.Alert;
+import org.openqa.selenium.NoAlertPresentException;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
 import org.openqa.selenium.support.ui.ExpectedCondition;
+import org.openqa.selenium.support.ui.ExpectedConditions;
 import org.openqa.selenium.support.ui.WebDriverWait;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
+import tests.main.test.AlertsTest;
 
 import java.util.ArrayList;
-import java.util.LinkedHashMap;
-import java.util.Set;
 
 public class WebDriverContext {
 
+    private static final Logger log = LoggerFactory.getLogger(WebDriverContext.class.getName());
     private static final InheritableThreadLocal<WebDriver> driverInstance = new InheritableThreadLocal<>();
+    public static final int SLEEP_IN_MILLIS = 200;
 
     enum Browsers {
         CHROME,
@@ -27,6 +32,10 @@ public class WebDriverContext {
 
     public static void removeDriver() {
         driverInstance.remove();
+    }
+
+    public static void closeTab() {
+        driverInstance.get().close();
     }
 
     public static WebDriver getDriver() {
@@ -50,18 +59,24 @@ public class WebDriverContext {
         driverInstance.get().switchTo().alert().accept();
     }
 
-    public static Alert waitAlert(final long time) {
-        return new WebDriverWait(driverInstance.get(), time, 200).until(new ExpectedCondition<Alert>() {
+    public static void waitAlert(final long time) {
+        new WebDriverWait(driverInstance.get(), time, SLEEP_IN_MILLIS).until(new ExpectedCondition<Alert>() {
             @Override
             public Alert apply(WebDriver d) {
-                Alert alert = d.switchTo().alert();
-                if (alert != null) {
-                    return alert;
-                } else {
-                    return null;
-                }
+                return d.switchTo().alert();
             }
         });
+    }
+
+    public static Boolean isAlertExist() {
+        try {
+            WebDriverWait wait = new WebDriverWait(driverInstance.get(), SLEEP_IN_MILLIS);
+            wait.until(ExpectedConditions.alertIsPresent());
+            log.info("Alert is Exist");
+            return true;
+        } catch (NoAlertPresentException e) {
+            return false;
+        }
     }
 
     public static void dismissAlert() {
@@ -84,8 +99,12 @@ public class WebDriverContext {
         driverInstance.get().switchTo().window(handleOfTab);
     }
 
+    public static void switchToParentTab() {
+        driverInstance.get().switchTo().window(WebDriverContext.getHandle(0));
+    }
+
     public static String getHandle(Integer numberOfHandle) {
-        ArrayList<String> listOfHandle = new ArrayList<String> (driverInstance.get().getWindowHandles());
+        ArrayList<String> listOfHandle = new ArrayList<String>(driverInstance.get().getWindowHandles());
         return listOfHandle.get(numberOfHandle);
     }
 }

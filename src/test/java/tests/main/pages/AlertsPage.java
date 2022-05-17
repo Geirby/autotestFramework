@@ -5,7 +5,6 @@ import com.framework.base.BrowserElements;
 import com.framework.context.WebDriverContext;
 import com.framework.decorator.CustomFieldDecorator;
 import com.framework.utils.JsonParse;
-import org.openqa.selenium.WebElement;
 import org.openqa.selenium.support.FindBy;
 import org.openqa.selenium.support.PageFactory;
 
@@ -50,21 +49,15 @@ public class AlertsPage extends BasePage {
     }
 
     public boolean confirmResultIsDisplayed() {
-        WebElement webElement;
-        webElement = confirmResult.getWebElement();
-        if (webElement != null) {
-            return false;
-        } else {
-            return true;
-        }
+        return confirmResult.isExist();
     }
 
-    public void clickOnPromtButton() {
+    public void clickAndSendKeysOnPromtButton(String value) {
         promtButton.click();
+        WebDriverContext.sendKeysAlert(value);
     }
 
-    public String getTextFromPromtResult() {
-        String promtText = promptResult.getText();
-        return promtText.substring(promtText.lastIndexOf(" ") + 1);
+    public boolean isPromtContainsEnteredText(String neededText) {
+       return promptResult.getText().contains(neededText);
     }
 }

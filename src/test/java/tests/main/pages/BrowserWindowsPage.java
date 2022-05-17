@@ -33,16 +33,19 @@ public class BrowserWindowsPage extends BasePage {
         PageFactory.initElements(new CustomFieldDecorator(WebDriverContext.getDriver()), this);
     }
 
-    public void clickOnTabButton() {
+    public void clickAndSwitchToTabButton() {
         tabButton.click();
+        WebDriverContext.switchToTab(WebDriverContext.getHandle(1));
     }
 
-    public void clickOnWindowButton() {
+    public void clickAndSwitchToWindowButton() {
         windowButton.click();
+        WebDriverContext.switchToTab(WebDriverContext.getHandle(1));
     }
 
-    public void clickOnMessageWindowButton() {
+    public void clickAndSwitchToMessageWindowButton() {
         messageWindowButton.click();
+        WebDriverContext.switchToTab(WebDriverContext.getHandle(1));
     }
 
     public String getTextFromSampleHeading() {
